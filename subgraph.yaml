@@ -1,0 +1,69 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: imbtc
+    network: mainnet
+    source:
+      address: "0x3212b29e33587a00fb1c83346f5dbfa69a458923"
+      abi: imbtc
+      startBlock: 8810012
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - RevenueAddressSet
+        - TransferEnabled
+        - TransferDisabled
+        - Paused
+        - Unpaused
+        - MinterAdded
+        - MinterRemoved
+        - OwnershipTransferred
+        - RevenueDistributed
+        - Transfer
+        - Approval
+        - Sent
+        - Minted
+        - Burned
+        - AuthorizedOperator
+        - RevokedOperator
+      abis:
+        - name: imbtc
+          file: ./abis/imbtc.json
+      eventHandlers:
+        - event: RevenueAddressSet(indexed address)
+          handler: handleRevenueAddressSet
+        - event: TransferEnabled(indexed address)
+          handler: handleTransferEnabled
+        - event: TransferDisabled(indexed address)
+          handler: handleTransferDisabled
+        - event: Paused(indexed address)
+          handler: handlePaused
+        - event: Unpaused(indexed address)
+          handler: handleUnpaused
+        - event: MinterAdded(indexed address,indexed address)
+          handler: handleMinterAdded
+        - event: MinterRemoved(indexed address,indexed address)
+          handler: handleMinterRemoved
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RevenueDistributed(indexed address,uint256,uint256,uint256)
+          handler: handleRevenueDistributed
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: Sent(indexed address,indexed address,indexed address,uint256,bytes,bytes)
+          handler: handleSent
+        - event: Minted(indexed address,indexed address,uint256,bytes,bytes)
+          handler: handleMinted
+        - event: Burned(indexed address,indexed address,uint256,bytes,bytes)
+          handler: handleBurned
+        - event: AuthorizedOperator(indexed address,indexed address)
+          handler: handleAuthorizedOperator
+        - event: RevokedOperator(indexed address,indexed address)
+          handler: handleRevokedOperator
+      file: ./src/mapping.ts

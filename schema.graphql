@@ -1,0 +1,12 @@
+type Fedorky @entity {
+  id: ID!
+  count: BigInt!
+  account: Bytes! # address
+}
+
+type Minted @entity {
+  id: ID!
+  amount: BigInt!
+  data: Bytes!
+  operatorData: Bytes!
+}
