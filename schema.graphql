@@ -4,9 +4,19 @@ type Fedorky @entity {
   account: Bytes! # address
 }
 
-type Minted @entity {
+type M_inted @entity {
   id: ID!
+  count: BigInt!
+  operator: Bytes!
+  to: Bytes!
   amount: BigInt!
   data: Bytes!
-  operatorData: Bytes!
+}
+
+type T_ransfer @entity {
+  id: ID!
+  count: BigInt!
+  from: Bytes!
+  to: Bytes!
+  value: BigInt!
 }
