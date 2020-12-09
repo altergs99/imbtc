@@ -20,3 +20,12 @@ type T_ransfer @entity {
   to: Bytes!
   value: BigInt!
 }
+
+type B_urned @entity {
+  id: ID!
+  count: BigInt!
+  operator: Bytes!
+  from: Bytes!
+  amount: BigInt!
+  data: Bytes!
+}
