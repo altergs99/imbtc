@@ -19,7 +19,7 @@ import {
   RevokedOperator
 } from "../generated/imbtc/imbtc"
 
-import { Fedorky, T_ransfer, M_inted } from "../generated/schema"
+import { Fedorky, T_ransfer, M_inted, B_urned } from "../generated/schema"
 
 export function handleRevenueAddressSet(event: RevenueAddressSet): void { 
   let entity = Fedorky.load(event.transaction.from.toHex()) 
@@ -76,11 +76,23 @@ export function handleMinted(event: Minted): void {
   entity.to = event.params.to
   entity.amount = event.params.amount
   entity.data = event.params.data
-  //entity.operatordata = event.params.operatorData
   entity.save()   
 }
 
-export function handleBurned(event: Burned): void {}
+export function handleBurned(event: Burned): void {
+  let entity = B_urned.load(event.transaction.from.toHex()) 
+  if (entity == null) {
+    entity = new B_urned(event.transaction.from.toHex())    
+    entity.count = BigInt.fromI32(0)
+  }  
+  entity.count = entity.count + BigInt.fromI32(1)
+  entity.operator = event.params.operator
+  entity.from = event.params.from
+  entity.amount = event.params.amount
+  entity.data = event.params.data
+  entity.save()   
+
+}
 
 export function handleAuthorizedOperator(event: AuthorizedOperator): void {}
 
